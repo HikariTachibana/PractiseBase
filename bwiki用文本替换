@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        p {
+            font-size: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .bt-group>button {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row" style="background-color: blanchedalmond;">
+            <div class="col-xs-10 col-md-10 col-lg-10">
+                <p>替换前文本：</p>
+                <input type="text" class="form-control" placeholder="请输入替换前文本" id="oldText">
+                <p>要替换的文本：</p>
+                <input type="text" class="form-control" placeholder="请输入要替换的文本" id="newText">
+                <p>输入文本:</p>
+                <textarea class="form-control" rows="5" cols="3" id="oldTextbox"></textarea>
+                <p>替换后的文本:</p>
+                <textarea class="form-control" rows="5" cols="3" id="newTextbox"></textarea>
+                <div class="bt-group">
+                    <button type="button" class="btn btn-success" id="changeBtn">转换</button>
+                    <button type="button" class="btn btn-info" id="resetBtn">重置</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    //获取元素
+    var changeBtn = document.getElementById("changeBtn");
+    var resetBtn = document.getElementById("resetBtn");
+    var oldText = document.getElementById("oldText");
+    var newText = document.getElementById("newText");
+    var oldTextbox = document.getElementById("oldTextbox");
+    var newTextbox = document.getElementById("newTextbox");
+    //点击按钮，结果输出在第四个文本框中
+    changeBtn.onclick = function() {
+            model_1();
+        }
+        //文本替换
+    function model_1() {
+        //替换模式1：文本中所有的oldText全部替换成newText
+        //|全替换成橘真雨
+        var text = encodeChange_first(oldText.value);
+        var textNew = encodeChange_first(newText.value);
+        var textBox = encodeChange_first(oldTextbox.value);
+        //此时|已全部换成橘真雨
+        textBox2 = textBox.replace(new RegExp(text, 'g'), textNew);
+        //文本替换完成
+        //全文本橘真雨替换成|
+        textBox3 = encodeChange_last(textBox2);
+        newTextbox.value = textBox3;
+        console.log(textBox3);
+    }
+
+    //替换文本中所有的|变成橘真雨
+    function encodeChange_first(str) {
+        var temp = str.replace(/\|/g, "橘真雨");
+        return temp;
+    }
+    //替换文本中所有的橘真雨变成|
+    function encodeChange_last(str) {
+        var temp = str.replace(/橘真雨/g, "\|");
+        return temp;
+    }
+
+    //点击重置，替换后的文本框内容清空
+    resetBtn.onclick = function() {
+        newTextbox.value = "";
+    }
+</script>
